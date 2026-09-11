@@ -143,6 +143,40 @@
     flex-shrink: 0;
   }
 
+  .coupon {
+    margin: 28px auto 0;
+    width: 33%;
+    min-width: 150px;
+    border: 1px dashed var(--gold-dim);
+    padding: 10px 8px;
+    cursor: pointer;
+    background: rgba(215,169,76,0.04);
+    transition: border-color 0.25s ease, background 0.25s ease;
+    text-align: center;
+  }
+
+  .coupon:hover, .coupon:focus-visible {
+    border-color: var(--gold);
+    background: rgba(215,169,76,0.09);
+    outline: none;
+  }
+
+  .coupon .coupon-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ash-dim);
+    white-space: nowrap;
+  }
+
+  .coupon .coupon-code {
+    margin-top: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+
   footer {
     margin-top: 44px;
     font-size: 10px;
@@ -187,7 +221,51 @@
       </a>
     </div>
 
+    <div class="coupon" id="couponBox" role="button" tabindex="0" onclick="copyCoupon()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();copyCoupon();}">
+      <div class="coupon-label">Use code for 10% off</div>
+      <div class="coupon-code" id="couponText">ActTy</div>
+    </div>
+
     <footer>Epik Entertainment</footer>
   </main>
+
+  <script>
+    function copyCoupon() {
+      const code = "ActTy";
+      const box = document.getElementById('couponBox');
+      const label = box.querySelector('.coupon-label');
+      const textEl = document.getElementById('couponText');
+
+      const showCopied = () => {
+        label.textContent = 'Copied!';
+        textEl.textContent = code;
+        setTimeout(() => {
+          label.textContent = 'Use code for 10% off';
+        }, 1800);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(showCopied).catch(() => {
+          fallbackCopy(code);
+          showCopied();
+        });
+      } else {
+        fallbackCopy(code);
+        showCopied();
+      }
+    }
+
+    function fallbackCopy(text) {
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      temp.style.position = 'fixed';
+      temp.style.opacity = '0';
+      document.body.appendChild(temp);
+      temp.focus();
+      temp.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(temp);
+    }
+  </script>
 </body>
 </html>

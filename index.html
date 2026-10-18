@@ -143,6 +143,37 @@
     flex-shrink: 0;
   }
 
+  .ticket.sold-out {
+    position: relative;
+    cursor: not-allowed;
+    user-select: none;
+  }
+
+  .ticket.sold-out .ticket-info,
+  .ticket.sold-out .ticket-cta {
+    opacity: 0.25;
+  }
+
+  .ticket.sold-out:hover {
+    border-color: var(--rule);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .sold-out-stamp {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(6,7,8,0.45);
+    pointer-events: none;
+  }
+
   .coupon {
     margin: 28px auto 0;
     width: 33%;
@@ -204,13 +235,14 @@
     <div class="divider"></div>
 
     <div class="dates">
-      <a class="ticket" href="https://www.trybooking.com/au/event/1634965/tickets?sessionId=6646331&sectionId=3170691" target="_blank" rel="noopener">
+      <div class="ticket sold-out" aria-disabled="true">
         <div class="ticket-info">
           <div class="day">Sunday 18th, 2pm</div>
           <div class="venue">Javeenbah Theatre</div>
         </div>
         <div class="ticket-cta">Book now</div>
-      </a>
+        <div class="sold-out-stamp" aria-label="Sold out">Sold Out</div>
+      </div>
 
       <a class="ticket" href="https://www.trybooking.com/au/event/1634965/tickets?sessionId=6646337&sectionId=3170691" target="_blank" rel="noopener">
         <div class="ticket-info">
